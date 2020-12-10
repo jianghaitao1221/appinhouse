@@ -61,6 +61,13 @@ pipeline {
             description: 'appinhouse image tag')
     }
     stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    checkout scm
+                }
+            }
+        }
         stage('Set Private Key') {
             steps {
                 script {
