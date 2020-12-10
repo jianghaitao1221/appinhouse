@@ -20,12 +20,13 @@ def initDir() {
 def copyConf() {
     sshPut remote: remote, from: env.WORKSPACE + '/docker-compose.yml', into: '/tmp/appinhouse'
     sshPut remote: remote, from: env.WORKSPACE + '/deploy/redis.conf', into: '/tmp/appinhouse'
+    sshPut remote: remote, from: env.WORKSPACE + '/conf/app.conf', into:'/tmp/appinhouse'
     sshPut remote: remote, from: env.WORKSPACE + '/deploy/copy-conf.sh', into: '/tmp/appinhouse'
     sshCommand remote: remote, command: "bash /tmp/appinhouse/copy-conf.sh"
 }
 
 def setConf(String secretKey) {
-    sshPut remote: remote, from: env.WORKSPACE + '/deploy/set-appinhouse-conf.sh', '/tmp/appinhouse'
+    sshPut remote: remote, from: env.WORKSPACE + '/deploy/set-appinhouse-conf.sh', into:'/tmp/appinhouse'
     sshCommand remote: remote, command: "bash /tmp/appinhouse/set-appinhouse-conf.sh " + secretKey
 }
 
