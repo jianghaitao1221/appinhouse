@@ -12,6 +12,7 @@ def getHost() {
 remote = getHost()
 
 def initDir() {
+    sshCommand remote: remote, command: "mkdir -p /tmp/appinhouse"
     sshPut remote: remote, from: env.WORKSPACE + '/deploy/init.sh', into: '/tmp/appinhouse'
     sshCommand remote: remote, command: "bash /tmp/appinhouse/init.sh"
 }
