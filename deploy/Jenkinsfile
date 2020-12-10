@@ -12,23 +12,25 @@ def getHost() {
 remote = getHost()
 
 def initDir() {
-    sshPut remote: remote, from: env.WORKSPACE + '/deploy/init.sh', into: '/tmp'
-    sshCommand remote: remote, command: "bash /tmp/init.sh"
+    sshPut remote: remote, from: env.WORKSPACE + '/deploy/init.sh', into: '/tmp/appinhouse'
+    sshCommand remote: remote, command: "bash /tmp/appinhouse/init.sh"
 }
 
 def copyConf() {
-    sshPut remote: remote, from: env.WORKSPACE + '/docker-compose.yml', into: env.APPINHOUSE_HOME
-    sshPut remote: remote, from: env.WORKSPACE + '/deploy/redis.conf', into: env.REDIS_CONFIG_PATH
+    sshPut remote: remote, from: env.WORKSPACE + '/docker-compose.yml', into: '/tmp/appinhouse'
+    sshPut remote: remote, from: env.WORKSPACE + '/deploy/redis.conf', into: '/tmp/appinhouse'
+    sshPut remote: remote, from: env.WORKSPACE + '/deploy/copy-conf.sh', '/tmp/appinhouse'
+    sshCommand remote: remote, command: "bash /tmp/copy-conf.sh"
 }
 
 def setConf(String secretKey) {
-    sshPut remote: remote, from: env.WORKSPACE + '/deploy/set-appinhouse-conf.sh', '/tmp'
-    sshCommand remote: remote, command: "bash /tmp/set-appinhouse-conf.sh " + secretKey
+    sshPut remote: remote, from: env.WORKSPACE + '/deploy/set-appinhouse-conf.sh', '/tmp/appinhouse'
+    sshCommand remote: remote, command: "bash /tmp/appinhouse/set-appinhouse-conf.sh " + secretKey
 }
 
 def run(String appinhouseImageTag) {
-    sshPut remote: remote, from: env.WORKSPACE + '/deploy/start.sh', into: '/tmp'
-    sshCommand remote: remote, command: "bash /tmp/start.sh " + appinhouseImageTag
+    sshPut remote: remote, from: env.WORKSPACE + '/deploy/start.sh', into: '/tmp/appinhouse'
+    sshCommand remote: remote, command: "bash /tmp/appinhouse/start.sh " + appinhouseImageTag
 }
 
 def deployBySSH(String secretKey, String appinhouseImageTag) {
