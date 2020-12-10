@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APPINHOUSE_CONF_PATH=/srv/appinhouse/conf
-REDIS_CONF_PATH=/srv/redis/conf
+REDIS_CONF_PATH=/srv/appinhouse/redis/conf
 
 echo "init appinhouse conf path"
 if [ ! -d "$APPINHOUSE_CONF_PATH" ]; then

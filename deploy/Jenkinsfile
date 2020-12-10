@@ -56,7 +56,6 @@ pipeline {
         APPINHOUSE_HOME = '/srv/appinhouse'
         DOCKER_COMPOSE_FILE = "${env.APPINHOUSE_HOME}/docker-compose.yml"
         APPINHOUSE_CONFIG_PATH = "${env.APPINHOUSE_HOME}/conf"
-        REDIS_CONFIG_PATH = "/srv/redis/conf"
     }
     parameters {
         string(name: 'APPINHOUSE_IMAGE_TAG',
