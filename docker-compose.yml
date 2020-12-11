@@ -9,7 +9,7 @@ services:
     depends_on:
       - redis
   redis:
-    image: docker pull docker.shiyou.kingsoft.com/mirror/redis:6.0.9
+    image: docker.shiyou.kingsoft.com/mirror/redis:6.0.9
     volumes:
       - /srv/redis/conf/redis.conf:/srv/appinhouse/redis/conf/redis.conf
       - /srv/appinhouse/redis/data:/data
