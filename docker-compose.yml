@@ -12,5 +12,5 @@ services:
     image: redis:6.0.9
     volumes:
       - /srv/redis/conf/redis.conf:/srv/appinhouse/redis/conf/redis.conf
-      - /srv/redis/data:/data
+      - /srv/appinhouse/redis/data:/data
     command: ["redis-server", "/srv/appinhouse/redis/conf/redis.conf"]

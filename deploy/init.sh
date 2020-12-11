@@ -2,15 +2,27 @@
 
 APPINHOUSE_CONF_PATH=/srv/appinhouse/conf
 REDIS_CONF_PATH=/srv/appinhouse/redis/conf
+REDIS_DATA_PATH=/srv/appinhouse/redis/data
 
 echo "init appinhouse conf path"
 if [ ! -d "$APPINHOUSE_CONF_PATH" ]; then
-    sudo mkdir -p "$APPINHOUSE_CONF_PATH"
+    mkdir -p "$APPINHOUSE_CONF_PATH"
     echo "mkdir "$APPINHOUSE_CONF_PATH
+    chmod 765 $APPINHOUSE_CONF_PATH
 fi
 
 echo "init redis conf path"
 if [ ! -d "$REDIS_CONF_PATH" ]; then
-    sudo mkdir -p "$REDIS_CONF_PATH"
+    mkdir -p "$REDIS_CONF_PATH"
     echo "mkdir "$REDIS_CONF_PATH
+    chmod 765 $REDIS_CONF_PATH
+    chown 1000 $REDIS_CONF_PATH
+fi
+
+echo "init redis data path"
+if [ ! -d "$REDIS_DATA_PATH" ]; then
+    mkdir -p "$REDIS_DATA_PATH"
+    echo "mkdir "$REDIS_DATA_PATH
+    chmod 765 $REDIS_DATA_PATH
+    chown 999 $REDIS_DATA_PATH
 fi

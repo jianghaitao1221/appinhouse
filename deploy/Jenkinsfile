@@ -5,7 +5,7 @@ def getHost() {
     remote.name = 'appinhouse'
     remote.host = 'test.server'
     remote.allowAnyHosts = true
-    remote.user = 'ubuntu'
+    remote.user = 'jenkins-cli'
     return remote
 }
 
