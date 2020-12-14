@@ -23,7 +23,7 @@ def setConf(String secretKey) {
     sshCommand remote: remote, command: ssh_command
 }
 
-def run() {
+def runAppinhouse() {
     def run_command = """cd /srv/appinhouse \
     && docker-compose down \
     && docker-compose pull \
@@ -35,7 +35,7 @@ def run() {
 def deployBySSH(String secretKey) {
     copyConf()
     setConf(secretKey)
-    run()
+    runAppinhouse()
 }
 
 pipeline {
