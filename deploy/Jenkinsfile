@@ -18,8 +18,11 @@ def copyConf() {
 }
 
 def setConf(String secretKey) {
+    def ssh_command ="sed -i '/^secret_key/csecret_key = '"+ secretKey + " /srv/appinhouse/conf \\" +
+    "&& sed -i '/^addr/caddr = 'redis:6379 /srv/appinhouse/conf"
+
     sshPut remote: remote, from: env.WORKSPACE + '/deploy/set-appinhouse-conf.sh', into:'/tmp'
-    sshCommand remote: remote, command: "bash /tmp/set-appinhouse-conf.sh " + secretKey
+    sshCommand remote: remote, command: ssh_command
 }
 
 def run() {
