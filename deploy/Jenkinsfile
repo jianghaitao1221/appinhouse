@@ -23,12 +23,12 @@ def setConf(String secretKey) {
 }
 
 def run() {
-    def restart_appinhouse = """cd /srv/appinhouse \
+    def ssh_command = """cd /srv/appinhouse \
     && docker-compose down \
     && docker-compose pull \
     && docker-compose up -d
     """
-    sshCommand remote: SSH_REMOTE, command: restart_appinhouse
+    sshCommand remote: remote, command: ssh_command
 }
 
 def deployBySSH(String secretKey) {
@@ -47,11 +47,6 @@ pipeline {
             artifactNumToKeepStr: '20'
         ))
         ansiColor('xterm')
-    }
-    environment {
-        APPINHOUSE_HOME = '/srv/appinhouse'
-        DOCKER_COMPOSE_FILE = "${env.APPINHOUSE_HOME}/docker-compose.yml"
-        APPINHOUSE_CONFIG_PATH = "${env.APPINHOUSE_HOME}/conf"
     }
     stages {
         stage('Checkout') {
