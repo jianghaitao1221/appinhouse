@@ -17,7 +17,9 @@ def copyConf() {
 }
 
 def setConf(String secretKey) {
-    def set_conf_command ="sed -i '/^secret_key/csecret_key = '"+ secretKey + " /srv/appinhouse/conf && sed -i '/^addr/caddr = 'redis:6379 /srv/appinhouse/conf"
+    def set_conf_command = """sed -i '/^secret_key/csecret_key = 'aaaa /srv/appinhouse/conf \
+    && sed -i '/^addr/caddr = 'redis:6379 /srv/appinhouse/conf
+    """
     sshCommand remote: remote, command: ssh_command
 }
 
