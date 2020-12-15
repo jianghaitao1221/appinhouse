@@ -30,13 +30,6 @@ pipeline {
         ansiColor('xterm')
     }
     stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    checkout scm
-                }
-            }
-        }
         stage('Deploy') {
             steps {
                 script {
