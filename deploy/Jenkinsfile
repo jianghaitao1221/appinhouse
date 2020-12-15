@@ -9,6 +9,8 @@ def getHost() {
     return remote
 }
 
+remote = getHost()
+
 def deployBySSH(String secretKey) {
     def run_command = """cd /srv/appinhouse \
     && docker-compose down \
