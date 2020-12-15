@@ -9,33 +9,13 @@ def getHost() {
     return remote
 }
 
-remote = getHost()
-
-def copyConf() {
-    sshPut remote: remote, from: env.WORKSPACE + '/deploy/redis.conf', into: '/srv/appinhouse/redis/conf'
-    sshPut remote: remote, from: env.WORKSPACE + '/conf/app.conf', into:'/srv/appinhouse/conf'
-}
-
-def setConf(String secretKey) {
-    def set_conf_command = """sed -i '/^secret_key/csecret_key = 'aaaa /srv/appinhouse/conf \
-    && sed -i '/^addr/caddr = 'redis:6379 /srv/appinhouse/conf
-    """
-    sshCommand remote: remote, command: ssh_command
-}
-
-def runAppinhouse() {
+def deployBySSH(String secretKey) {
     def run_command = """cd /srv/appinhouse \
     && docker-compose down \
     && docker-compose pull \
     && docker-compose up -d
     """
     sshCommand remote: remote, command: run_command
-}
-
-def deployBySSH(String secretKey) {
-    copyConf()
-    setConf(secretKey)
-    runAppinhouse()
 }
 
 pipeline {
