@@ -39,9 +39,7 @@ pipeline {
                     //        remote.identityFile = identity
                     withCredentials([usernamePassword(credentialsId: 'jenkins.ssh', usernameVariable: 'username', passwordVariable: 'password')]) {
                         remote.password = password
-                        withCredentials([string(credentialsId: 'appinhouse-secret-key', variable: 'secretKey')]) {
-                            deployBySSH(secretKey)
-                        }            
+                        deployBySSH(secretKey)      
                     }
                 }
             }
