@@ -11,7 +11,7 @@ def getHost() {
 
 remote = getHost()
 
-def deployBySSH(String secretKey) {
+def deployBySSH() {
     def run_command = """cd /srv/appinhouse \
     && docker-compose down \
     && docker-compose pull \
@@ -39,7 +39,7 @@ pipeline {
                     //        remote.identityFile = identity
                     withCredentials([usernamePassword(credentialsId: 'jenkins.ssh', usernameVariable: 'username', passwordVariable: 'password')]) {
                         remote.password = password
-                        deployBySSH(secretKey)      
+                        deployBySSH()      
                     }
                 }
             }
